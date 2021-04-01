@@ -45,16 +45,6 @@ class NationalSite:
     def info(self):
         return f"{self.name} ({self.category}): {self.address} {self.zipcode}"
 
-# class NearPlace:
-#     def __init__(self, result):
-#         self.hostedData = result['hostedData']
-#         self.resultsCount = result['resultsCount']
-#         self.origin = result['origin']
-#         self.totalPages = result['totalPages']
-#         self.options = result['options']
-#         self.searchResults = result['searchResults']
-#         self.info = result['info']
-
 def build_state_url_dict():
     ''' Make a dictionary that maps state name to state page url from "https://www.nps.gov"
 
@@ -72,16 +62,10 @@ def build_state_url_dict():
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     soup_detail = soup.find('ul', class_="dropdown-menu SearchBar-keywordSearch")
-    # print(type(soup_detail))
     soup_detail2 = soup_detail.find_all('a')
-    # print(type(soup_detail2))
     state_url_dict={}
     for i in soup_detail2:
-        # print(i.text.lower())
-        # print(i.attrs['href'])
         state_url_dict[i.text.lower()] =  'https://www.nps.gov' + i.attrs['href']
-    # for key, value in state_url.items():
-    #     print(f"{key},{value}")
     return state_url_dict
 
 def get_site_instance(site_url):
@@ -97,7 +81,6 @@ def get_site_instance(site_url):
     instance
         a national site instance
     '''
-    # url = 'https://www.nps.gov/isro/index.htm'
     url = site_url
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -124,13 +107,9 @@ def get_site_instance_with_cache(site_url):
     instance
         a national site instance
     '''
-    # url = 'https://www.nps.gov/isro/index.htm'
     request_key = site_url
-    # print(request_key)
-    # print(CACHE_DICT.keys())
     if request_key in CACHE_DICT.keys():
         print("Using cache")
-        # load cache
         name = CACHE_DICT[request_key]['name']
         category = CACHE_DICT[request_key]['category']
         addr = CACHE_DICT[request_key]['addr']
@@ -174,7 +153,6 @@ def get_sites_for_state(state_url):
     list
         a list of national site instances
     '''
-    # url = 'https://www.nps.gov/state/mi/index.htm'
     url = state_url
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -184,7 +162,6 @@ def get_sites_for_state(state_url):
     for i in soup_detail:
         soup_detail2 = i.find('h3').find('a').attrs['href']
         park_url = base_url + soup_detail2 + 'index.htm'
-        # Nationalsite = get_site_instance(park_url)
         Nationalsite = get_site_instance_with_cache(park_url)
         Nationalsite_list.append(Nationalsite)
     return Nationalsite_list
@@ -207,10 +184,7 @@ def get_nearby_places(site_object):
     zipcode = site_object.zipcode
     param_dict = {'key':KEY, 'origin':zipcode, 'maxMatches':10, 'radius':10, 'ambiguities':'ignore','outFormat':'json'}
     response = requests.get(base_url,param_dict)
-    # response = requests.get(f'https://www.mapquestapi.com/search/v2/radius?origin=48105&radius=10&maxMatches=1&ambiguities=ignore&outFormat=json&key={KEY}')
     result = response.json()
-    # print(result['searchResults'])
-    # NearPlace_inst = NearPlace(result)
     NearPlace_dict = result
     return NearPlace_dict
 
@@ -366,12 +340,10 @@ def save_cache_near(cache_dict):
 
 
 if __name__ == "__main__":
-    # Open cache and state url mapping
     CACHE_DICT= open_cache()
     CACHE_DICT_NEAR = open_cache_near()
     state_url_dict = build_state_url_dict()
 
-    # User interactive search interface
     state_name = input('Enter a state name (e.g. Michigan, michigan) or "exit" : ')
     while(state_name != "exit"):
         if state_name.lower() in state_url_dict.keys():
