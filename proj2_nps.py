@@ -34,7 +34,15 @@ class NationalSite:
 
     phone: string
         the phone of a national site (e.g. '(616) 319-7906', '307-344-7381')
+
+    Instance Methods
+    -------------------
+    info :
+        return information of this instance attributes
+        input: none
+        return: string
     '''
+
     def __init__(self, category='w1', name='w2', address='w3', zipcode='w4', phone='w5'):
         self.category = category
         self.name = name
