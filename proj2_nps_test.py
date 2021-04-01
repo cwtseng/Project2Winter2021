@@ -41,6 +41,7 @@ class Test_Part2(unittest.TestCase):
         self.assertEqual(self.site_wy1.phone, "307-344-7381")
 
     def test_2_4_str(self):
+        self.site_mi1.info()
         self.assertEqual(self.site_mi1.info(), "North Country (National Scenic Trail): Lowell, MI 49331")
         self.assertEqual(self.site_wy1.info(), "Yellowstone (National Park): Yellowstone National Park, WY 82190-0168")
 
@@ -59,9 +60,9 @@ class Test_Part3(unittest.TestCase):
         self.assertEqual(self.wy_list[0].name, "Bighorn Canyon")
         self.assertEqual(self.wy_list[0].category, "National Recreation Area")
         self.assertEqual(self.wy_list[0].address, "Lovell, WY")
-        self.assertEqual(self.wy_list[0].zipcode, "82435")
+        self.assertEqual(self.wy_list[0].zipcode, "82431")
         self.assertEqual(self.wy_list[0].phone, "(307) 548-5406")
-        self.assertEqual(self.wy_list[0].info(),"Bighorn Canyon (National Recreation Area): Lovell, WY 82435")
+        self.assertEqual(self.wy_list[0].info(),"Bighorn Canyon (National Recreation Area): Lovell, WY 82431")
 
 
 class Test_Part4(unittest.TestCase):
