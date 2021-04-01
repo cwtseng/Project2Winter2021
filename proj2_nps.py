@@ -228,6 +228,20 @@ def get_nearby_places_with_cache(site_object):
     return NearPlace_dict
 
 def print_near_places(site_name, NearPlace_dict):
+    ''' print places result
+
+    Parameters
+    ----------
+    site_name: string
+        name of the site
+
+    NearPlace_dict: dict
+        the site's near places dictionay
+
+    Returns
+    -------
+    None
+    '''
     print("-"*50)
     print(f"Places near {site_name}")
     print("-"*50)
@@ -260,10 +274,23 @@ def print_near_places(site_name, NearPlace_dict):
         print(place)
 
 def print_national_sites(state_name, NationalSite_list):
+    ''' print sites result
+    Parameters
+    ----------
+    state_name: string
+        name of the state
+
+    NationalSite_list: list
+        list of sites in the state
+
+    Returns
+    -------
+    None
+    '''
     print("-"*50)
     print(f"List of national sites in {state_name}")
     print("-"*50)
-    j=1
+    j = 1
     for i in NationalSite_list:
         print(f"[{j}] {i.info()}")
         j = j+1
